@@ -20,12 +20,12 @@ pipeline {
         stage("Building Student Survey Application Image") {
             steps {
                 script {
-                    sh 'echo "Building Docker image..."'
+                    def customImage = null
+                    echo "Building Docker image..."
                     sh "docker login -u amisha1407 -p 123ami456A@"
-
-
-                    // Build Docker image with a timestamped tag
-                    def customImage = docker.build("${DOCKER_IMAGE}:${BUILD_TIMESTAMP}", "--build-arg BUILD_ID=${BUILD_TIMESTAMP} .")
+                    
+                    // This assumes the Jenkins agent has Docker installed and access
+                    customImage = docker.build("${DOCKER_IMAGE}:${BUILD_TIMESTAMP}", "--build-arg BUILD_ID=${BUILD_TIMESTAMP} .")
                 }
             }
         }
